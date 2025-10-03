@@ -247,7 +247,7 @@ export default function App() {
   <input
               type="number"
               name="quantityUsed"
-              placeholder="Ej: 300 o 6 (media docena de huevos)"
+              placeholder="Ej: 300gr/ml o 6u (media docena de huevos)"
               value={form.quantityUsed}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
