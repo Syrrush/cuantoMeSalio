@@ -208,7 +208,7 @@ export default function App() {
             <input
               type="number"
               name="quantityBought"
-              placeholder="Cantidad comprada"
+              placeholder="Cantidad comprada EN GRAMOS o ML"
               value={form.quantityBought}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
@@ -217,7 +217,7 @@ export default function App() {
             <input
               type="number"
               name="quantityUsed"
-              placeholder="Cantidad usada en receta"
+              placeholder="Cantidad usada en receta EN GRAMOS o ML"
               value={form.quantityUsed}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
