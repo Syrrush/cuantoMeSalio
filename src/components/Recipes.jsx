@@ -226,24 +226,35 @@ export default function App() {
               onKeyDown={handleKeyDown}
               className="border p-3 rounded text-lg w-full"
             />
-            <input
-              type="number"
-              name="quantityBought"
-              placeholder="Cantidad comprada EN GRAMOS, ML O UNIDADES"
-              value={form.quantityBought}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              className="border p-3 rounded text-lg w-full"
-            />
-            <input
+            <div className="flex flex-col">
+  <label className="text-sm font-medium text-gray-300 mb-1">
+    Cantidad comprada <span className="text-gray-400">(en gramos, ml o unidades)</span>
+  </label>
+  <input
               type="number"
               name="quantityUsed"
-              placeholder="Cantidad usada en receta EN GRAMOS, ML O UNIDADES"
+              placeholder="Ej: 1000(1 kg /litro) o 30 (maple huevos)"
               value={form.quantityUsed}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
-              className="border p-3 rounded text-lg w-full"
+              className="w-full px-4 py-2 border rounded"
             />
+</div>
+            <div className="flex flex-col">
+  <label className="text-sm font-medium text-gray-300 mb-1">
+    Cantidad usada en la receta <span className="text-gray-400">(en gramos, ml o unidades)</span>
+  </label>
+  <input
+              type="number"
+              name="quantityUsed"
+              placeholder="Ej: 300 o 6 (media docena de huevos)"
+              value={form.quantityUsed}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              className="w-full px-4 py-2 border rounded"
+            />
+</div>
+            
             <button
               onClick={addOrUpdateIngredient}
               className="bg-green-500 text-white py-3 text-lg rounded-lg hover:bg-green-600"
