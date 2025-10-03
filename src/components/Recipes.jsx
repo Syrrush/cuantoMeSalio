@@ -232,9 +232,9 @@ export default function App() {
   </label>
   <input
               type="number"
-              name="quantityUsed"
+              name="quantityBought"
               placeholder="Ej: 1000(1 kg /litro) o 30 (maple 🥚)"
-              value={form.quantityUsed}
+              value={form.quantityBought}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               className="w-full px-4 py-2 border rounded"
