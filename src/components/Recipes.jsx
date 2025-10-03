@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function App() {
   const [recipes, setRecipes] = useState([]);
@@ -13,6 +13,9 @@ export default function App() {
   const [editIndex, setEditIndex] = useState(null);
   const [editIngredientIndex, setEditIngredientIndex] = useState(null);
   const [profitPercent, setProfitPercent] = useState("");
+
+  // 🔥 Ref para el input de Ingrediente
+  const ingredientInputRef = useRef(null);
 
   // Cargar recetas desde localStorage
   useEffect(() => {
@@ -60,6 +63,11 @@ export default function App() {
     });
 
     setForm({ name: "", cost: "", quantityBought: "", quantityUsed: "" });
+
+    // 🔥 Volver a enfocar el input de Ingrediente
+    if (ingredientInputRef.current) {
+      ingredientInputRef.current.focus();
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -78,6 +86,11 @@ export default function App() {
       quantityUsed: ing.quantityUsed,
     });
     setEditIngredientIndex(index);
+
+    // 🔥 también ponemos el foco al editar
+    if (ingredientInputRef.current) {
+      ingredientInputRef.current.focus();
+    }
   };
 
   const finishRecipe = () => {
@@ -110,13 +123,20 @@ export default function App() {
     setTitle("");
     setEditIndex(null);
     setProfitPercent("");
+
+    // 🔥 dar foco al ingrediente al empezar nueva receta
+    setTimeout(() => {
+      if (ingredientInputRef.current) {
+        ingredientInputRef.current.focus();
+      }
+    }, 0);
   };
 
   const editRecipe = (index) => {
     setCurrentRecipe(recipes[index]);
     setTitle(recipes[index].title);
     setEditIndex(index);
-    setProfitPercent(recipes[index].profitPercent || ""); // 🔥 cargamos el guardado
+    setProfitPercent(recipes[index].profitPercent || "");
   };
 
   const totalCost = (ingredients) =>
@@ -188,6 +208,7 @@ export default function App() {
 
           <div className="grid gap-3 mb-4">
             <input
+              ref={ingredientInputRef} // 👈 ref en el input de ingrediente
               type="text"
               name="name"
               placeholder="Ingrediente"
@@ -208,7 +229,7 @@ export default function App() {
             <input
               type="number"
               name="quantityBought"
-              placeholder="Cantidad comprada EN GRAMOS o ML"
+              placeholder="Cantidad comprada EN GRAMOS, ML O UNIDADES"
               value={form.quantityBought}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
@@ -217,7 +238,7 @@ export default function App() {
             <input
               type="number"
               name="quantityUsed"
-              placeholder="Cantidad usada en receta EN GRAMOS o ML"
+              placeholder="Cantidad usada en receta EN GRAMOS, ML O UNIDADES"
               value={form.quantityUsed}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
@@ -302,29 +323,29 @@ export default function App() {
             />
           </div>
 
-         <div className="flex flex-col gap-3 text-lg font-bold mb-6 bg-gray-900/50 border border-gray-700 p-4 rounded-lg">
-  <div className="flex justify-between">
-    <span>Precio de venta:</span>
-    <span className="text-green-400">
-      $
-      {calculateSellingPrice(
-        totalCost(currentRecipe.ingredients)
-      ).toFixed(2)}{" "}
-      🤑
-    </span>
-  </div>
-  <div className="flex justify-between">
-    <span>Estarías ganando:</span>
-    <span className="text-yellow-300">
-      $
-      {(
-        calculateSellingPrice(totalCost(currentRecipe.ingredients)) -
-        totalCost(currentRecipe.ingredients)
-      ).toFixed(2)}{" "}
-      💰
-    </span>
-  </div>
-</div>
+          <div className="flex flex-col gap-3 text-lg font-bold mb-6 bg-gray-900/50 border border-gray-700 p-4 rounded-lg">
+            <div className="flex justify-between">
+              <span>Precio de venta:</span>
+              <span className="text-green-400">
+                $
+                {calculateSellingPrice(
+                  totalCost(currentRecipe.ingredients)
+                ).toFixed(2)}{" "}
+                🤑
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span>Estarías ganando:</span>
+              <span className="text-yellow-300">
+                $
+                {(
+                  calculateSellingPrice(totalCost(currentRecipe.ingredients)) -
+                  totalCost(currentRecipe.ingredients)
+                ).toFixed(2)}{" "}
+                💰
+              </span>
+            </div>
+          </div>
 
           <button
             onClick={finishRecipe}
