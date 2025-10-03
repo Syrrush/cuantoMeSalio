@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@tailwind utilities; 
+
+
+#root {
+  max-width: 100%;
+  text-align: center;
+  background-color: white;
+}
