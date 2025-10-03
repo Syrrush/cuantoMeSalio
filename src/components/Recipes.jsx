@@ -268,7 +268,7 @@ export default function App() {
 
           <div className="mb-4">
             <label className="block mb-2 font-medium">
-              ¿Cuánto % quieres ganar?
+              ¿Cuánto % querés ganar?
             </label>
             <div className="flex flex-wrap gap-2 mb-2">
               {[25, 50].map((p) => (
